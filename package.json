@@ -1,0 +1,35 @@
+{
+  "name": "sproutcore-routing",
+  "summary": "SproutCore Routing",
+  "description": "HTML5 History (with hashchange fallback) based routing",
+  "homepage": "http://sproutcore.com/",
+  "author": "Strobe Inc., Apple Inc. and contributors",
+  "version": "2.0.beta.3",
+
+  "directories": {
+    "lib": "lib"
+  },
+
+  "dependencies": {
+    "spade": "~> 1.0",
+    "jquery": "~> 1.6",
+    "sproutcore-runtime": "2.0.beta.3"
+  },
+
+  "dependencies:development": {
+    "spade-qunit": "~> 1.0.0"
+  },
+
+  "bpm:build": {
+    "bpm_libs.js": {
+      "files": ["lib"],
+      "modes": "*"
+    },
+
+    "sproutcore-routing/bpm_tests.js": {
+      "files": ["tests"],
+      "modes": ["debug"]
+    }
+  }
+
+}
