@@ -4,7 +4,7 @@
   "description": "HTML5 History (with hashchange fallback) based routing",
   "homepage": "http://sproutcore.com/",
   "author": "Strobe Inc., Apple Inc. and contributors",
-  "version": "2.0.beta.6",
+  "version": "2.0.beta.7",
 
   "directories": {
     "lib": "lib"
@@ -31,5 +31,4 @@
       "modes": ["debug"]
     }
   }
-
 }
