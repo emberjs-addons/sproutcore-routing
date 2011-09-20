@@ -67,32 +67,32 @@ test('Route tree', function() {
   r.add(abe, router, router.route);
   r.add(as, router, router.route);
 
-  a = r.staticRoutes['a'];
+  a = r.staticRoutes.a;
   ok(a, 'There should be a staticRoutes tree for a');
   ok(!a.target, 'A node should not have a target');
   ok(!a.method, 'A node should not have a method');
 
-  b = a.staticRoutes['b'];
+  b = a.staticRoutes.b;
   ok(b, 'There should be a staticRoutes tree for b');
   ok(!b.target, 'A node should not have a target');
   ok(!b.method, 'A node should not have a method');
 
-  c = b.staticRoutes['c'];
+  c = b.staticRoutes.c;
   ok(c, 'There should be a staticRoutes tree for c');
   equals(c.target, router, 'A leaf should have a target');
   equals(c.method, router.route, 'A leaf should have a method');
 
-  d = b.staticRoutes['d'];
+  d = b.staticRoutes.d;
   ok(d, 'There should be a staticRoutes tree for d');
   equals(d.target, router, 'A leaf should have a target');
   equals(d.method, router.route, 'A leaf should have a method');
 
-  e = b.dynamicRoutes['e'];
+  e = b.dynamicRoutes.e;
   ok(e, 'There should be a dynamicRoutes tree for e');
   equals(d.target, router, 'A leaf should have a target');
   equals(d.method, router.route, 'A leaf should have a method');
 
-  s = a.wildcardRoutes['foo'];
+  s = a.wildcardRoutes.foo;
   ok(s, 'There should be a wildcardRoutes tree for a');
 
   equals(r.routeForParts(['a'], {}), null, 'routeForParts should return null for non existant routes');
@@ -104,7 +104,7 @@ test('Route tree', function() {
   abe[2] = 'foo';
   p = {};
   equals(r.routeForParts(abe, p), e, 'routeForParts should return the correct route for a/b/:e');
-  equals(p['e'], 'foo', 'routeForParts should return the params for a/b/:e');
+  equals(p.e, 'foo', 'routeForParts should return the params for a/b/:e');
 
   p = {};
   equals(r.routeForParts(['a', 'double', 'double', 'toil', 'and', 'trouble'], p), s, 'routeForParts should return the correct route for a/*foo');
