@@ -302,8 +302,8 @@ test('Location change', function() {
     }, 2000);
 
     router.addObserver('hasBeenNotified', function() {
-      equals(router.get('hasBeenNotified'), YES, 'router should have been notified');
       clearTimeout(timer);
+      equals(router.get('hasBeenNotified'), YES, 'router should have been notified');
       start();
     });
 
