@@ -1,3 +1,4 @@
 .bpm/
 .spade/
 assets/
+*.bpkg
