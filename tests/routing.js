@@ -275,6 +275,13 @@ test('A mix of everything', function() {
   SC.routes.set('location', 'foo/users/éàçùß€/bar/5/double/double/toil/and/trouble?cuisine=french&party=4');
 });
 
+test('calling exists() returns whether the route is defined or not', function() {
+  SC.routes.add("foo", router, "triggerRoute");
+
+  equal(SC.routes.exists('foo'), true);
+  equal(SC.routes.exists('bar'), false);
+})
+
 module('SC.routes location observing', {
 
   setup: function() {
