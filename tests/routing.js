@@ -59,13 +59,13 @@ test('Route tree', function() {
       abc = ['a', 'b', 'c'],
       abd = ['a', 'b', 'd'],
       abe = ['a', 'b', ':e'],
-      as = ['a', '*foo'],
+      fs = ['f', '*foo'],
       a, b, c, d, e, s, p;
 
   r.add(abc, router, router.route);
   r.add(abd, router, router.route);
   r.add(abe, router, router.route);
-  r.add(as, router, router.route);
+  r.add(fs, router, router.route);
 
   a = r.staticRoutes.a;
   ok(a, 'There should be a staticRoutes tree for a');
@@ -92,8 +92,8 @@ test('Route tree', function() {
   equals(d.target, router, 'A leaf should have a target');
   equals(d.method, router.route, 'A leaf should have a method');
 
-  s = a.wildcardRoutes.foo;
-  ok(s, 'There should be a wildcardRoutes tree for a');
+  s = r.staticRoutes.f.wildcardRoutes.foo;
+  ok(s, 'There should be a wildcardRoutes tree for f');
 
   equals(r.routeForParts(['a'], {}), null, 'routeForParts should return null for non existant routes');
   equals(r.routeForParts(['a', 'b'], {}), null, 'routeForParts should return null for non existant routes');
@@ -107,8 +107,8 @@ test('Route tree', function() {
   equals(p.e, 'foo', 'routeForParts should return the params for a/b/:e');
 
   p = {};
-  equals(r.routeForParts(['a', 'double', 'double', 'toil', 'and', 'trouble'], p), s, 'routeForParts should return the correct route for a/*foo');
-  equals(p.foo, 'double/double/toil/and/trouble', 'routeForParts should return the params for a/*foo');
+  equals(r.routeForParts(['f', 'double', 'double', 'toil', 'and', 'trouble'], p), s, 'routeForParts should return the correct route for f/*foo');
+  equals(p.foo, 'double/double/toil/and/trouble', 'routeForParts should return the params for f/*foo');
 });
 
 module('SC.routes location', {
