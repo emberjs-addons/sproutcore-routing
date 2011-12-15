@@ -5,47 +5,47 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 // ========================================================================
-// SC.routes Base Tests
+// Ember.routes Base Tests
 // ========================================================================
 /*globals module test ok isObj equals expects */
 
 var router;
 
-SC.routes.wantsHistory = YES;
+Ember.routes.wantsHistory = YES;
 
-module('SC.routes setup');
+module('Ember.routes setup');
 
 test('Setup', function() {
-  equals(SC.routes._didSetup, NO, 'SC.routes should not have been setup yet');
+  equals(Ember.routes._didSetup, NO, 'Ember.routes should not have been setup yet');
 });
 
-module('SC.routes setup', {
+module('Ember.routes setup', {
 
   setup: function() {
-    router = SC.Object.create({
+    router = Ember.Object.create({
       route: function() {
         return;
       }
     });
-    SC.run(function() {
-      SC.routes.add('foo', router, router.route);
+    Ember.run(function() {
+      Ember.routes.add('foo', router, router.route);
     });
   }
 
 });
 
 test('Setup', function() {
-  equals(SC.routes._didSetup, YES, 'SC.routes should have been setup');
+  equals(Ember.routes._didSetup, YES, 'Ember.routes should have been setup');
 });
 
 test('Initial route', function() {
-  equals(SC.routes.get('location'), '', 'Initial route is an empty string');
+  equals(Ember.routes.get('location'), '', 'Initial route is an empty string');
 });
 
-module('SC.routes._Route', {
+module('Ember.routes._Route', {
 
   setup: function() {
-    router = SC.Object.create({
+    router = Ember.Object.create({
       route: function() {
         return;
       }
@@ -55,7 +55,7 @@ module('SC.routes._Route', {
 });
 
 test('Route tree', function() {
-  var r = SC.routes._Route.create(),
+  var r = Ember.routes._Route.create(),
       abc = ['a', 'b', 'c'],
       abd = ['a', 'b', 'd'],
       abe = ['a', 'b', ':e'],
@@ -111,10 +111,10 @@ test('Route tree', function() {
   equals(p.foo, 'double/double/toil/and/trouble', 'routeForParts should return the params for f/*foo');
 });
 
-module('SC.routes location', {
+module('Ember.routes location', {
 
   teardown: function() {
-    SC.routes.set('location', null);
+    Ember.routes.set('location', null);
   }
 
 });
@@ -122,18 +122,18 @@ module('SC.routes location', {
 var routeWorks = function(route, name) {
   stop();
 
-  SC.routes.set('location', route);
-  equals(SC.routes.get('location'), route, name + ' route has been set');
+  Ember.routes.set('location', route);
+  equals(Ember.routes.get('location'), route, name + ' route has been set');
 
   setTimeout(function() {
-    equals(SC.routes.get('location'), route, name + ' route is still the same');
+    equals(Ember.routes.get('location'), route, name + ' route is still the same');
     start();
   }, 300);
 };
 
 test('Null route', function() {
-  SC.routes.set('location', null);
-  equals(SC.routes.get('location'), '', 'Null route is the empty string');
+  Ember.routes.set('location', null);
+  equals(Ember.routes.get('location'), '', 'Null route is the empty string');
 });
 
 test('Simple route', function() {
@@ -148,10 +148,10 @@ test('Already escaped route', function() {
   routeWorks('%C3%A9%C3%A0%20%C3%A7%C3%B9%20%C3%9F%E2%82%AC', 'already escaped');
 });
 
-module('SC.routes defined routes', {
+module('Ember.routes defined routes', {
 
   setup: function() {
-    router = SC.Object.create({
+    router = Ember.Object.create({
       params: null,
       triggered: NO,
       route: function(params) {
@@ -164,7 +164,7 @@ module('SC.routes defined routes', {
   },
 
   teardown: function() {
-    SC.routes.set('location', null);
+    Ember.routes.set('location', null);
   }
 
 });
@@ -172,30 +172,30 @@ module('SC.routes defined routes', {
 test('setting location triggers function when only passed function', function() {
   var barred = false;
 
-  SC.routes.add('bar', function(params) {
+  Ember.routes.add('bar', function(params) {
     barred = true;
   });
-  SC.routes.set('location', 'bar');
+  Ember.routes.set('location', 'bar');
 
   ok(barred, 'Function was called');
 });
 
 test('setting location simply triggers route', function() {
-  SC.routes.add("foo", router, "triggerRoute");
-  SC.routes.set('location', 'bar');
+  Ember.routes.add("foo", router, "triggerRoute");
+  Ember.routes.set('location', 'bar');
   ok(!router.triggered, "Router not triggered with nonexistent route.");
 
-  SC.routes.set('location', 'foo');
+  Ember.routes.set('location', 'foo');
   ok(router.triggered, "Router triggered.");
 });
 
 test('calling trigger() triggers current location (again)', function() {
-  SC.routes.add("foo", router, "triggerRoute");
-  SC.routes.set('location', 'foo');
+  Ember.routes.add("foo", router, "triggerRoute");
+  Ember.routes.set('location', 'foo');
   ok(router.triggered, "Router triggered first time.");
   router.triggered = NO;
 
-  SC.routes.trigger();
+  Ember.routes.trigger();
   ok(router.triggered, "Router triggered (again).");
 });
 
@@ -214,8 +214,8 @@ test('A mix of static, dynamic and wildcard route', function() {
     start();
   });
 
-  SC.routes.add('foo/:controller/:action/bar/:id/*witches', router, router.route);
-  SC.routes.set('location', 'foo/users/éàçùß€/bar/5/double/double/toil/and/trouble');
+  Ember.routes.add('foo/:controller/:action/bar/:id/*witches', router, router.route);
+  Ember.routes.set('location', 'foo/users/éàçùß€/bar/5/double/double/toil/and/trouble');
 });
 
 test('Route with parameters defined in a string', function() {
@@ -233,8 +233,8 @@ test('Route with parameters defined in a string', function() {
     start();
   });
 
-  SC.routes.add('*url', router, router.route);
-  SC.routes.set('location', '?cuisine=french&party=4');
+  Ember.routes.add('*url', router, router.route);
+  Ember.routes.set('location', '?cuisine=french&party=4');
 });
 
 test('Route with parameters defined in a hash', function() {
@@ -252,8 +252,8 @@ test('Route with parameters defined in a hash', function() {
     start();
   });
 
-  SC.routes.add('*url', router, router.route);
-  SC.routes.set('location', { cuisine: 'french', party: '4' });
+  Ember.routes.add('*url', router, router.route);
+  Ember.routes.set('location', { cuisine: 'french', party: '4' });
 });
 
 test('A mix of everything', function() {
@@ -271,21 +271,21 @@ test('A mix of everything', function() {
     start();
   });
 
-  SC.routes.add('foo/:controller/:action/bar/:id/*witches', router, router.route);
-  SC.routes.set('location', 'foo/users/éàçùß€/bar/5/double/double/toil/and/trouble?cuisine=french&party=4');
+  Ember.routes.add('foo/:controller/:action/bar/:id/*witches', router, router.route);
+  Ember.routes.set('location', 'foo/users/éàçùß€/bar/5/double/double/toil/and/trouble?cuisine=french&party=4');
 });
 
 test('calling exists() returns whether the route is defined or not', function() {
-  SC.routes.add("foo", router, "triggerRoute");
+  Ember.routes.add("foo", router, "triggerRoute");
 
-  equal(SC.routes.exists('foo'), true);
-  equal(SC.routes.exists('bar'), false);
+  equal(Ember.routes.exists('foo'), true);
+  equal(Ember.routes.exists('bar'), false);
 })
 
-module('SC.routes location observing', {
+module('Ember.routes location observing', {
 
   setup: function() {
-    router = SC.Object.create({
+    router = Ember.Object.create({
       hasBeenNotified: NO,
       route: function(params) {
         this.set('hasBeenNotified', YES);
@@ -294,13 +294,13 @@ module('SC.routes location observing', {
   },
 
   teardown: function() {
-    SC.routes.set('location', null);
+    Ember.routes.set('location', null);
   }
 
 });
 
 test('Location change', function() {
-  if (!SC.routes.get('usesHistory')) {
+  if (!Ember.routes.get('usesHistory')) {
     stop();
 
     var timer = setTimeout(function() {
@@ -314,7 +314,7 @@ test('Location change', function() {
       start();
     });
 
-    SC.routes.add('foo', router, router.route);
+    Ember.routes.add('foo', router, router.route);
     window.location.hash = 'foo';
   }
 });
@@ -322,37 +322,37 @@ test('Location change', function() {
 module('_extractParametersAndRoute');
 
 test('_extractParametersAndRoute with ? syntax', function() {
-  same(SC.routes._extractParametersAndRoute({ route: 'videos/5?format=h264' }),
+  same(Ember.routes._extractParametersAndRoute({ route: 'videos/5?format=h264' }),
        { route: 'videos/5', params:'?format=h264', format: 'h264' },
        'route parameters should be correctly extracted');
 
-  same(SC.routes._extractParametersAndRoute({ route: 'videos/5?format=h264&size=small' }),
+  same(Ember.routes._extractParametersAndRoute({ route: 'videos/5?format=h264&size=small' }),
        { route: 'videos/5', params:'?format=h264&size=small', format: 'h264', size: 'small' },
        'route parameters should be correctly extracted');
 
-  same(SC.routes._extractParametersAndRoute({ route: 'videos/5?format=h264&size=small', format: 'ogg' }),
+  same(Ember.routes._extractParametersAndRoute({ route: 'videos/5?format=h264&size=small', format: 'ogg' }),
        { route: 'videos/5', params:'?format=ogg&size=small', format: 'ogg', size: 'small' },
        'route parameters should be extracted and overwritten');
 
-  same(SC.routes._extractParametersAndRoute({ route: 'videos/5', format: 'h264', size: 'small' }),
+  same(Ember.routes._extractParametersAndRoute({ route: 'videos/5', format: 'h264', size: 'small' }),
        { route: 'videos/5', params:'?format=h264&size=small', format: 'h264', size: 'small' },
        'route should be well formatted with the given parameters');
 
-  same(SC.routes._extractParametersAndRoute({ format: 'h264', size: 'small' }),
+  same(Ember.routes._extractParametersAndRoute({ format: 'h264', size: 'small' }),
        { route: '', params:'?format=h264&size=small', format: 'h264', size: 'small' },
        'route should be well formatted with the given parameters even if there is no initial route');
 });
 
 test('_extractParametersAndRoute with & syntax', function() {
-  same(SC.routes._extractParametersAndRoute({ route: 'videos/5&format=h264' }),
+  same(Ember.routes._extractParametersAndRoute({ route: 'videos/5&format=h264' }),
        { route: 'videos/5', params:'&format=h264', format: 'h264' },
        'route parameters should be correctly extracted');
 
-  same(SC.routes._extractParametersAndRoute({ route: 'videos/5&format=h264&size=small' }),
+  same(Ember.routes._extractParametersAndRoute({ route: 'videos/5&format=h264&size=small' }),
        { route: 'videos/5', params:'&format=h264&size=small', format: 'h264', size: 'small' },
        'route parameters should be correctly extracted');
 
-  same(SC.routes._extractParametersAndRoute({ route: 'videos/5&format=h264&size=small', format: 'ogg' }),
+  same(Ember.routes._extractParametersAndRoute({ route: 'videos/5&format=h264&size=small', format: 'ogg' }),
        { route: 'videos/5', params:'&format=ogg&size=small', format: 'ogg', size: 'small' },
        'route parameters should be extracted and overwritten');
 });
