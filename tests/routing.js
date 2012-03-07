@@ -282,11 +282,14 @@ test('A mix of everything', function() {
 });
 
 test('calling exists() returns whether the route is defined or not', function() {
+  equal(Em.routes.exists('foo'), false, 'Route /foo should not exist');
+
   Em.routes.add("foo", router, "triggerRoute");
 
   equal(Em.routes.exists('foo'), true, 'Route /foo should exist');
-  equal(Em.routes.exists('quux'), false, 'Route /quux should not exist');
-})
+  equal(Em.routes.exists('bar'), false, 'Route /bar should not exist');
+
+});
 
 module('Em.routes location observing', {
 
