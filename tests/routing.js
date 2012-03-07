@@ -45,6 +45,7 @@ test('Initial route', function() {
 module('Em.routes._Route', {
 
   setup: function() {
+    Em.routes._firstRoute = null;
     router = Em.Object.create({
       route: function() {
         return;
@@ -113,6 +114,10 @@ test('Route tree', function() {
 
 module('Em.routes location', {
 
+  setup: function() {
+    Em.routes._firstRoute = null
+  },
+
   teardown: function() {
     Em.routes.set('location', null);
   }
@@ -151,6 +156,7 @@ test('Already escaped route', function() {
 module('Em.routes defined routes', {
 
   setup: function() {
+    Em.routes._firstRoute = null;
     router = Em.Object.create({
       params: null,
       triggered: NO,
@@ -278,13 +284,15 @@ test('A mix of everything', function() {
 test('calling exists() returns whether the route is defined or not', function() {
   Em.routes.add("foo", router, "triggerRoute");
 
-  equal(Em.routes.exists('foo'), true);
-  equal(Em.routes.exists('quux'), false);
+  equal(Em.routes.exists('foo'), true, 'Route /foo should exist');
+  equal(Em.routes.exists('quux'), false, 'Route /quux should not exist');
 })
 
 module('Em.routes location observing', {
 
   setup: function() {
+    Em.routes._firstRoute = null;
+
     router = Em.Object.create({
       hasBeenNotified: NO,
       route: function(params) {
