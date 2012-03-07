@@ -282,11 +282,13 @@ test('A mix of everything', function() {
 });
 
 test('calling exists() returns whether the route is defined or not', function() {
+  equal(SC.routes.exists('foo'), false, 'Route /foo should not exist');
+
   SC.routes.add("foo", router, "triggerRoute");
 
   equal(SC.routes.exists('foo'), true, 'Route /foo should exist');
   equal(SC.routes.exists('quux'), false, 'Route /quux should not exist');
-})
+});
 
 module('SC.routes location observing', {
 
