@@ -45,6 +45,7 @@ test('Initial route', function() {
 module('SC.routes._Route', {
 
   setup: function() {
+    SC.routes._firstRoute = null;
     router = SC.Object.create({
       route: function() {
         return;
@@ -113,6 +114,10 @@ test('Route tree', function() {
 
 module('SC.routes location', {
 
+  setup: function() {
+    SC.routes._firstRoute = null
+  },
+
   teardown: function() {
     SC.routes.set('location', null);
   }
@@ -151,6 +156,7 @@ test('Already escaped route', function() {
 module('SC.routes defined routes', {
 
   setup: function() {
+    SC.routes._firstRoute = null;
     router = SC.Object.create({
       params: null,
       triggered: NO,
@@ -278,13 +284,14 @@ test('A mix of everything', function() {
 test('calling exists() returns whether the route is defined or not', function() {
   SC.routes.add("foo", router, "triggerRoute");
 
-  equal(SC.routes.exists('foo'), true);
-  equal(SC.routes.exists('bar'), false);
+  equal(SC.routes.exists('foo'), true, 'Route /foo should exist');
+  equal(SC.routes.exists('quux'), false, 'Route /quux should not exist');
 })
 
 module('SC.routes location observing', {
 
   setup: function() {
+    SC.routes._firstRoute = null;
     router = SC.Object.create({
       hasBeenNotified: NO,
       route: function(params) {
