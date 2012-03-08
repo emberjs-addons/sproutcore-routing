@@ -1,8 +1,8 @@
 {
-  "name": "ember-routing",
-  "summary": "Ember Routing",
+  "name": "sproutcore-routing",
+  "summary": "SproutCore Routing",
   "description": "HTML5 History based routing (with a hashchange fallback)",
-  "homepage": "http://emberjs.com/",
+  "homepage": "http://sproutcore.com/",
   "author": "Strobe Inc., Apple Inc. and contributors",
   "version": "2.0.beta.8",
   "directories": {
